@@ -76,7 +76,11 @@ public class BooksPresenter {
                     @Override
                     public void execute(Realm realm) {
                         Book book = new Book();
-                        book.setId(realm.where(Book.class).max(BookFields.ID).longValue() + 1);
+                        long id = 1;
+                        if(realm.where(Book.class).count() > 0) {
+                            id = realm.where(Book.class).max(BookFields.ID).longValue() + 1; // auto-increment id
+                        }
+                        book.setId(id);
                         book.setAuthor(author);
                         book.setDescription("");
                         book.setImageUrl(thumbnail);
