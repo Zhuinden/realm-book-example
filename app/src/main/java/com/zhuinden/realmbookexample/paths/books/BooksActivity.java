@@ -19,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class BooksActivity
         extends AppCompatActivity
@@ -124,5 +123,32 @@ public class BooksActivity
     @Override
     public void showMissingTitle() {
         Toast.makeText(BooksActivity.this, getString(R.string.entry_not_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showEditBookDialog(Book book) {
+        final View content = getLayoutInflater().inflate(R.layout.edit_item, root, false);
+        final BooksPresenter.ViewContract.DialogContract dialogContract = (BooksPresenter.ViewContract.DialogContract) content;
+        dialogContract.bind(book);
+
+        final long id = book.getId();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(BooksActivity.this);
+        builder.setView(content)
+                .setTitle(getString(R.string.edit_book))
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        booksPresenter.editBook(dialogContract, id);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

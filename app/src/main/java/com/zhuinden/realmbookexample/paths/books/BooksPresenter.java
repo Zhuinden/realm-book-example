@@ -1,7 +1,5 @@
 package com.zhuinden.realmbookexample.paths.books;
 
-import android.widget.Toast;
-
 import com.zhuinden.realmbookexample.application.RealmManager;
 import com.zhuinden.realmbookexample.data.entity.Book;
 import com.zhuinden.realmbookexample.data.entity.BookFields;
@@ -17,7 +15,9 @@ public class BooksPresenter {
 
         void showMissingTitle();
 
-        public interface DialogContract {
+        void showEditBookDialog(Book book);
+
+        interface DialogContract {
             String getTitle();
             String getAuthor();
             String getThumbnail();
@@ -54,6 +54,12 @@ public class BooksPresenter {
 
     public void dismissAddDialog() {
         isDialogShowing = false;
+    }
+
+    public void showEditDialog(Book book) {
+        if(hasView()) {
+            viewContract.showEditBookDialog(book);
+        }
     }
 
     public void saveBook(ViewContract.DialogContract dialogContract) {

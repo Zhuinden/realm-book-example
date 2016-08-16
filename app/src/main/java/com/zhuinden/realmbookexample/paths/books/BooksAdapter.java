@@ -1,23 +1,16 @@
 package com.zhuinden.realmbookexample.paths.books;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.zhuinden.realmbookexample.R;
 import com.zhuinden.realmbookexample.data.entity.Book;
 
@@ -113,27 +106,7 @@ public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.Bo
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final View content = LayoutInflater.from(context).inflate(R.layout.edit_item, card, false);
-                    final BooksPresenter.ViewContract.DialogContract dialogContract = (BooksPresenter.ViewContract.DialogContract)content;
-                    dialogContract.bind(book);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setView(content)
-                            .setTitle(context.getString(R.string.edit_book))
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    booksPresenter.editBook(dialogContract, id);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    booksPresenter.showEditDialog(book);
                 }
             });
         }
