@@ -12,6 +12,8 @@ It also uses outdated practices or is just not up-to-date information:
 - uses a Migration to pre-populate the database, even though `initialData()` exists now
 - claims that `null` support for primitives isn't in, even though it was added in 0.83.0
 
+------------------------------
+
 So with that in mind, this repository shows how to do these things right:
 
 - uses `executeTransactionAsync()` on the UI thread
