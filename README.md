@@ -119,7 +119,15 @@ Which is created in the Activity.
 
 The adapter is set up like this
 
-        recycler.setAdapter(new BooksAdapter(this, realm.where(Book.class).findAllAsync(), booksPresenter));
+``` java
+recycler.setAdapter(new BooksAdapter(this, realm.where(Book.class).findAllAsync(), booksPresenter));
+```
+        
+Where the adapter is a proper `RealmRecyclerViewAdapter`:
+
+``` java
+public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.BookViewHolder> {
+```
         
 And the writes are from the UI thread to a background thread using `executeTransactionAsync()`, found in the presenter.
 
