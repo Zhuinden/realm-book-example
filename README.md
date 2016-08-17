@@ -11,6 +11,7 @@ It also uses outdated practices or is just not up-to-date information:
 - `refresh()` doesn't even exist anymore, and even when it did, in this use-case it was not needed
 - uses a Migration to pre-populate the database, even though `initialData()` exists now
 - claims that `null` support for primitives isn't in, even though it was added in 0.83.0
+- the code relies on `commitTransaction()` immediately updating the `RealmResults<T>` and calling `adapter.notifyDataSetChanged()` manually, but that's not the case since 0.89.0 which means you need to add a change listener to the `RealmResults<T>` (which `RealmRecyclerViewAdapter` does for you automatically)
 
 ------------------------------
 
