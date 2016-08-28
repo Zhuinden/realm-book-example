@@ -1,5 +1,5 @@
 # realm-book-example
-This is a rewrite of a ["Realm tutorial" on Android Hive](http://www.androidhive.info/2016/05/android-working-with-realm-database-replacing-sqlite-core-data). Unfortunately the tutorial is extremely outdated (uses 0.82.1 even though the version 1.1.1 is out!), the code is unstructured (Realm transactions inside a click listener inside a dialog created in a long click listener); and it also misuses Realm quite heavily: 
+This is a rewrite of a ["Realm tutorial" on Android Hive](http://www.androidhive.info/2016/05/android-working-with-realm-database-replacing-sqlite-core-data). Unfortunately the tutorial is extremely outdated (uses 0.82.1 even though the version 1.2.0 is out!), the code is unstructured (Realm transactions inside a click listener inside a dialog created in a long click listener); and it also misuses Realm quite heavily: 
 
 - using `begin/commitTransaction()` instead of `executeTransaction()`
 - calling `refresh()` even though the Realm instance is freshly open
