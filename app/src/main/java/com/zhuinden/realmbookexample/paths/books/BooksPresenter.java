@@ -1,5 +1,7 @@
 package com.zhuinden.realmbookexample.paths.books;
 
+import android.content.Context;
+
 import com.zhuinden.realmbookexample.application.RealmManager;
 import com.zhuinden.realmbookexample.data.entity.Book;
 import com.zhuinden.realmbookexample.data.entity.BookFields;
@@ -10,6 +12,13 @@ import io.realm.Realm;
  * Created by Zhuinden on 2016.08.16..
  */
 public class BooksPresenter {
+    public static BooksPresenter getService(Context context) {
+        //noinspection ResourceType
+        return (BooksPresenter) context.getSystemService(TAG);
+    }
+
+    public static final String TAG = "BooksPresenter";
+
     public interface ViewContract {
         void showAddBookDialog();
 

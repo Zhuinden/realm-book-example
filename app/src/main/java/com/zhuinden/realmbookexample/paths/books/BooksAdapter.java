@@ -25,16 +25,16 @@ import io.realm.RealmResults;
 public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.BookViewHolder> {
     final BooksPresenter booksPresenter;
 
-    public BooksAdapter(Context context, RealmResults<Book> books, BooksPresenter booksPresenter) {
+    public BooksAdapter(Context context, RealmResults<Book> books) {
         super(context, books, true);
-        this.booksPresenter = booksPresenter;
+        this.booksPresenter = BooksPresenter.getService(context);
     }
 
     // create new views (invoked by the layout manager)
     @Override
     public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // inflate a new card view
-        return new BookViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_books, parent, false), booksPresenter);
+        return new BookViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_books, parent, false));
     }
 
     @Override
@@ -67,11 +67,11 @@ public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.Bo
         final Context context;
         final BooksPresenter booksPresenter;
 
-        public BookViewHolder(View itemView, BooksPresenter booksPresenter) {
+        public BookViewHolder(View itemView) {
             // standard view holder pattern with Butterknife view injection
             super(itemView);
             this.context = itemView.getContext();
-            this.booksPresenter = booksPresenter;
+            this.booksPresenter = BooksPresenter.getService(context);
             ButterKnife.bind(this, itemView);
         }
 

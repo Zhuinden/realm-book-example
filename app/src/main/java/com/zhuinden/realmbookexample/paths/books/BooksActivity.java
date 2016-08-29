@@ -68,7 +68,7 @@ public class BooksActivity
 
         // get all persisted objects
         // changes will be reflected automatically
-        recycler.setAdapter(new BooksAdapter(this, realm.where(Book.class).findAllAsync(), booksPresenter));
+        recycler.setAdapter(new BooksAdapter(this, realm.where(Book.class).findAllAsync()));
 
         if(savedInstanceState == null) {
             Toast.makeText(this, R.string.press_to_edit_long_press_remove, Toast.LENGTH_LONG).show();
@@ -150,5 +150,13 @@ public class BooksActivity
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public Object getSystemService(String name) {
+        if(name.equals(BooksPresenter.TAG)) {
+            return booksPresenter;
+        }
+        return super.getSystemService(name);
     }
 }
