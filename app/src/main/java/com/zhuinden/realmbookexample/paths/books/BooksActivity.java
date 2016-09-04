@@ -41,8 +41,8 @@ public class BooksActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         RealmManager.initializeRealmConfig(getApplicationContext());
+        super.onCreate(savedInstanceState);
         BooksScopeListener fragment = (BooksScopeListener) getSupportFragmentManager().findFragmentByTag("SCOPE_LISTENER");
         if(fragment == null) {
             fragment = new BooksScopeListener();
