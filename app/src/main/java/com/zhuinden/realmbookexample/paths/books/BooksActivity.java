@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zhuinden.realmbookexample.R;
+import com.zhuinden.realmbookexample.application.DataLoader;
 import com.zhuinden.realmbookexample.application.RealmManager;
 import com.zhuinden.realmbookexample.data.entity.Book;
 
@@ -42,6 +43,8 @@ public class BooksActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         RealmManager.initializeRealmConfig(getApplicationContext());
+        DataLoader loader = DataLoader.getInstance();
+        loader.loadData();
         super.onCreate(savedInstanceState);
         BooksScopeListener fragment = (BooksScopeListener) getSupportFragmentManager().findFragmentByTag("SCOPE_LISTENER");
         if(fragment == null) {
