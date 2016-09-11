@@ -8,4 +8,6 @@
     <string name="entry_not_saved">Entry not saved, title is missing.</string>
     <string name="edit_book">Edit book</string>
     <string name="press_to_edit_long_press_remove">Press card item for edit, long press to remove item</string>
+    <string name="loading">Loading</string>
+    <string name="loading_the_books">We are loading the books</string>
 </resources>

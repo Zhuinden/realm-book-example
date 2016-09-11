@@ -2,11 +2,14 @@ package com.zhuinden.realmbookexample.paths.books;
 
 import android.content.Context;
 
+import com.zhuinden.realmbookexample.application.DataLoader;
 import com.zhuinden.realmbookexample.application.RealmManager;
 import com.zhuinden.realmbookexample.data.entity.Book;
 import com.zhuinden.realmbookexample.data.entity.BookFields;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 
 /**
  * Created by Zhuinden on 2016.08.16..
@@ -26,6 +29,10 @@ public class BooksPresenter {
 
         void showEditBookDialog(Book book);
 
+        void showLoading();
+
+        void hideLoading();
+
         interface DialogContract {
             String getTitle();
             String getAuthor();
@@ -34,6 +41,23 @@ public class BooksPresenter {
             void bind(Book book);
         }
     }
+
+    final RealmChangeListener<RealmResults<Book>> bookChangeListener = new RealmChangeListener<RealmResults<Book>>() {
+        @Override
+        public void onChange(RealmResults<Book> element) {
+            if (element.size() == 0) {
+                DataLoader dataLoader = DataLoader.getInstance();
+                dataLoader.loadData();
+                if (hasView()) {
+                    viewContract.showLoading();
+                }
+            } else if (hasView()) {
+                viewContract.hideLoading();
+            }
+        }
+    };
+
+    RealmResults<Book> bookResults;
 
     ViewContract viewContract;
 
@@ -51,6 +75,10 @@ public class BooksPresenter {
     }
 
     public void unbindView() {
+        if (bookResults != null && bookResults.isValid()) {
+            bookResults.removeChangeListener(bookChangeListener);
+            bookResults = null;
+        }
         this.viewContract = null;
     }
 
@@ -98,6 +126,14 @@ public class BooksPresenter {
                     }
                 });
             }
+        }
+    }
+
+    public void updateBooks() {
+        if (bookResults == null || !bookResults.isValid()) {
+            Realm realm = RealmManager.getRealm();
+            bookResults = realm.where(Book.class).findAllAsync();
+            bookResults.addChangeListener(bookChangeListener);
         }
     }
 
