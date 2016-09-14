@@ -25,6 +25,7 @@ public class DataLoader {
     private static final String TAG = "DataLoader";
 
     private static DataLoader instance;
+    private static Gson gsonInstance;
 
     private final OkHttpClient okHttpClient;
 
@@ -38,6 +39,26 @@ public class DataLoader {
         }
 
         return instance;
+    }
+
+    public synchronized static Gson getGsonInstance() {
+        if (gsonInstance == null) {
+            gsonInstance = new GsonBuilder()
+                .setExclusionStrategies(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes f) {
+                        return f.getDeclaringClass().equals(RealmObject.class);
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> clazz) {
+                        return false;
+                    }
+                })
+                .create();
+        }
+
+        return gsonInstance;
     }
 
     public void loadData() {
@@ -60,7 +81,7 @@ public class DataLoader {
 
                 final String responseBody = response.body().string();
                 final Type bookType = new TypeToken<List<Book>>(){}.getType();
-                final List<Book> bookList = getGson().fromJson(responseBody, bookType);
+                final List<Book> bookList = getGsonInstance().fromJson(responseBody, bookType);
                 Realm realm = null;
                 try {
                     realm = Realm.getInstance(RealmManager.getRealmConfiguration());
@@ -79,21 +100,5 @@ public class DataLoader {
                 }
             }
         });
-    }
-
-    private Gson getGson() {
-        return new GsonBuilder()
-            .setExclusionStrategies(new ExclusionStrategy() {
-                @Override
-                public boolean shouldSkipField(FieldAttributes f) {
-                    return f.getDeclaringClass().equals(RealmObject.class);
-                }
-
-                @Override
-                public boolean shouldSkipClass(Class<?> clazz) {
-                    return false;
-                }
-            })
-            .create();
     }
 }
