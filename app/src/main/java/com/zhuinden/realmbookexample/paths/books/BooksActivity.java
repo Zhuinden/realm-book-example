@@ -1,5 +1,6 @@
 package com.zhuinden.realmbookexample.paths.books;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -39,6 +40,8 @@ public class BooksActivity
 
     AlertDialog dialog;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         RealmManager.initializeRealmConfig(getApplicationContext());
@@ -76,6 +79,23 @@ public class BooksActivity
 
         // bind to presenter
         booksPresenter.bindView(this);
+        booksPresenter.updateBooks();
+    }
+
+    @Override
+    public void showLoading() {
+       hideLoading();
+       progressDialog =  ProgressDialog.show(this,
+           getString(R.string.loading),
+           getString(R.string.loading_the_books)
+       );
+    }
+
+    @Override
+    public void hideLoading() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -83,6 +103,7 @@ public class BooksActivity
         if(booksPresenter != null) {
             booksPresenter.unbindView();
         }
+        hideLoading();
         if(dialog != null) {
             dialog.dismiss();
         }

@@ -19,7 +19,7 @@ public class RealmManager {
     public static void initializeRealmConfig(Context appContext) {
         if(realmConfiguration == null) {
             Log.d(TAG, "Initializing Realm configuration.");
-            setRealmConfiguration(new RealmConfiguration.Builder(appContext).initialData(new RealmInitialData())
+            setRealmConfiguration(new RealmConfiguration.Builder(appContext)
                     .deleteRealmIfMigrationNeeded()
                     .build());
         }
@@ -28,6 +28,14 @@ public class RealmManager {
     public static void setRealmConfiguration(RealmConfiguration realmConfiguration) {
         RealmManager.realmConfiguration = realmConfiguration;
         Realm.setDefaultConfiguration(realmConfiguration);
+    }
+
+    public static RealmConfiguration getRealmConfiguration() {
+        if (realmConfiguration == null) {
+            throw new RuntimeException("RealmConfiguration is null");
+        }
+
+        return realmConfiguration;
     }
 
     private static int activityCount = 0;
