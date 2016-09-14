@@ -88,9 +88,7 @@ public class DataLoader {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
-                            for (Book book : bookList) {
-                                realm.insertOrUpdate(book);
-                            }
+                            realm.insertOrUpdate(bookList);
                         }
                     });
                 } finally {
