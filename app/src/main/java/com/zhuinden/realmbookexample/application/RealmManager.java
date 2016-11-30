@@ -11,9 +11,9 @@ import io.realm.RealmConfiguration;
 public class RealmManager {
     private static final String TAG = "RealmManager";
 
-    static Realm realm;
+    private static Realm realm;
 
-    static RealmConfiguration realmConfiguration;
+    private static RealmConfiguration realmConfiguration;
 
     public static void initializeRealmConfig() {
         if(realmConfiguration == null) {

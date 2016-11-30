@@ -23,11 +23,9 @@ import io.realm.RealmResults;
  * Created by Zhuinden on 2016.08.13..
  */
 public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.BookViewHolder> {
-    final BooksPresenter booksPresenter;
 
     public BooksAdapter(Context context, RealmResults<Book> books) {
         super(context, books, true);
-        this.booksPresenter = BooksPresenter.getService(context);
     }
 
     // create new views (invoked by the layout manager)
@@ -41,9 +39,7 @@ public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.Bo
     public void onBindViewHolder(BookViewHolder holder, final int position) {
         // get the article
         final Book book = getItem(position);
-        if(book == null) {
-            return;
-        } else {
+        if(book != null) {
             holder.bind(book);
         }
     }
@@ -68,7 +64,7 @@ public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.Bo
         final BooksPresenter booksPresenter;
 
         public BookViewHolder(View itemView) {
-            // standard view holder pattern with Butterknife view injection
+            // standard view holder pattern with ButterKnife view injection
             super(itemView);
             this.context = itemView.getContext();
             this.booksPresenter = BooksPresenter.getService(context);

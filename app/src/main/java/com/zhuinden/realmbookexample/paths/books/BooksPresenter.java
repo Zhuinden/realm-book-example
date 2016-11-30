@@ -1,6 +1,7 @@
 package com.zhuinden.realmbookexample.paths.books;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.zhuinden.realmbookexample.application.RealmManager;
 import com.zhuinden.realmbookexample.data.entity.Book;
@@ -77,7 +78,7 @@ public class BooksPresenter {
             final String title = dialogContract.getTitle();
             final String thumbnail = dialogContract.getThumbnail();
 
-            if("".equals(title.trim())) {
+            if(TextUtils.isEmpty(title.trim())) {
                 viewContract.showMissingTitle();
             } else {
                 Realm realm = RealmManager.getRealm();

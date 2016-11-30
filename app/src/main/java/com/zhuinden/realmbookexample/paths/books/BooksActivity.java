@@ -33,8 +33,6 @@ public class BooksActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    Realm realm;
-
     BooksPresenter booksPresenter;
 
     AlertDialog dialog;
@@ -51,7 +49,7 @@ public class BooksActivity
             getSupportFragmentManager().beginTransaction().add(fragment, "SCOPE_LISTENER").commit();
         }
         //get realm instance
-        realm = RealmManager.getRealm();
+        Realm realm = RealmManager.getRealm();
 
         //get presenter instance
         booksPresenter = fragment.getPresenter();
