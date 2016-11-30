@@ -41,7 +41,9 @@ public class BooksActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RealmManager.initializeRealmConfig(getApplicationContext());
+        // The #onCreate of custom Application would be a better location for initializing Realm
+        Realm.init(getApplicationContext());
+        RealmManager.initializeRealmConfig();
         super.onCreate(savedInstanceState);
         BooksScopeListener fragment = (BooksScopeListener) getSupportFragmentManager().findFragmentByTag("SCOPE_LISTENER");
         if(fragment == null) {

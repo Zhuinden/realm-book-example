@@ -1,6 +1,5 @@
 package com.zhuinden.realmbookexample.application;
 
-import android.content.Context;
 import android.util.Log;
 
 import io.realm.Realm;
@@ -16,10 +15,10 @@ public class RealmManager {
 
     static RealmConfiguration realmConfiguration;
 
-    public static void initializeRealmConfig(Context appContext) {
+    public static void initializeRealmConfig() {
         if(realmConfiguration == null) {
             Log.d(TAG, "Initializing Realm configuration.");
-            setRealmConfiguration(new RealmConfiguration.Builder(appContext).initialData(new RealmInitialData())
+            setRealmConfiguration(new RealmConfiguration.Builder().initialData(new RealmInitialData())
                     .deleteRealmIfMigrationNeeded()
                     .build());
         }
