@@ -78,7 +78,7 @@ public class BooksPresenter {
             final String title = dialogContract.getTitle();
             final String thumbnail = dialogContract.getThumbnail();
 
-            if(TextUtils.isEmpty(title.trim())) {
+            if(title == null || "".equals(title.trim())) {
                 viewContract.showMissingTitle();
             } else {
                 Realm realm = RealmManager.getRealm();
