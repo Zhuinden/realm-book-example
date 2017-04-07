@@ -33,15 +33,15 @@ public class BooksActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    Realm realm;
-
     BooksPresenter booksPresenter;
 
     AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RealmManager.initializeRealmConfig(getApplicationContext());
+        // The #onCreate of custom Application would be a better location for initializing Realm
+        Realm.init(getApplicationContext());
+        RealmManager.initializeRealmConfig();
         super.onCreate(savedInstanceState);
         BooksScopeListener fragment = (BooksScopeListener) getSupportFragmentManager().findFragmentByTag("SCOPE_LISTENER");
         if(fragment == null) {
@@ -49,7 +49,7 @@ public class BooksActivity
             getSupportFragmentManager().beginTransaction().add(fragment, "SCOPE_LISTENER").commit();
         }
         //get realm instance
-        realm = RealmManager.getRealm();
+        Realm realm = RealmManager.getRealm();
 
         //get presenter instance
         booksPresenter = fragment.getPresenter();

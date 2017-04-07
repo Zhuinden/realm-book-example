@@ -1,6 +1,7 @@
 package com.zhuinden.realmbookexample.paths.books;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.zhuinden.realmbookexample.application.RealmManager;
 import com.zhuinden.realmbookexample.data.entity.Book;
