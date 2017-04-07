@@ -24,8 +24,8 @@ import io.realm.RealmResults;
  */
 public class BooksAdapter extends RealmRecyclerViewAdapter<Book, BooksAdapter.BookViewHolder> {
 
-    public BooksAdapter(Context context, RealmResults<Book> books) {
-        super(context, books, true);
+    public BooksAdapter(RealmResults<Book> books) {
+        super(books, true);
     }
 
     // create new views (invoked by the layout manager)
