@@ -68,7 +68,7 @@ public class BooksActivity
 
         // get all persisted objects
         // changes will be reflected automatically
-        recycler.setAdapter(new BooksAdapter(this, realm.where(Book.class).findAllAsync()));
+        recycler.setAdapter(new BooksAdapter(realm.where(Book.class).findAllAsync()));
 
         if(savedInstanceState == null) {
             Toast.makeText(this, R.string.press_to_edit_long_press_remove, Toast.LENGTH_LONG).show();
