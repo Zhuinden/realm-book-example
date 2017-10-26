@@ -1,6 +1,7 @@
 package com.zhuinden.realmbookexample.paths.books;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +59,7 @@ public class BooksActivity
         ButterKnife.bind(this);
 
         //set toolbar
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
         //setup recycler
