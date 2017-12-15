@@ -129,6 +129,9 @@ public class BooksActivity
 
     @Override
     public void showEditBookDialog(Book book) {
+        if(!book.isValid()) {
+            return;
+        }
         final View content = getLayoutInflater().inflate(R.layout.edit_item, root, false);
         final BooksPresenter.ViewContract.DialogContract dialogContract = (BooksPresenter.ViewContract.DialogContract) content;
         dialogContract.bind(book);
